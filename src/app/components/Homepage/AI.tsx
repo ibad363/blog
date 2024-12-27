@@ -1,6 +1,8 @@
 import Image from "next/image"
-import { Clock } from 'lucide-react';
+import { Clock, UserPen } from 'lucide-react';
 import BlogCard from "../BlogCard";
+import Link from "next/link";
+import { Button } from "@/components/ui/button";
 
 const AI = () => {
   return (
@@ -22,13 +24,17 @@ const AI = () => {
                 <p className="text-[#B89F48]">#stripe</p>
               </div>
               <p className="mt-6 text-center md:text-left leading-loose">Lorem ipsum dolor sit amet, consectetur adipiscing elit. In ullamcorper accumsan nisl, a aliquam nibh. Phasellus felis justo, convallis eget eros at, consequat luctus felis.Nunc pharetra orci tellus. Nulla facilisi.</p>
-              <div className="flex items-center gap-3 mt-6 md:mt-12">
-                <Clock />
-                <span className="font-bold">5-7 minutes read</span>
+              <div className="flex items-center gap-6 mt-4">
+                <div className='flex items-center gap-3'>
+                  <UserPen />
+                  <span>{"author"}</span>
+                </div>
+                <span className='pr-4'>{"WeB dev"}</span>
               </div>
+              <Link href={"/web-dev/b1"}><Button variant={"link"} className='text-white text-lg p-0 mt-4'>Read More</Button></Link>
             </div>
             {/* Blog Image */}
-            <div className="md:min-w-[300px] max-w-[500px] h-auto lg:h-[370px] mx-auto w-full">
+            <div className="md:min-w-[400px] max-w-[500px] h-auto lg:h-[370px] mx-auto w-full">
                 <Image src={"/1.png"} alt="Blog Image" width={500} height={500} className="object-cover w-full h-full rounded-xl"></Image>
             </div>
         </div>
