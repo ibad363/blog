@@ -28,7 +28,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`font-Oswald font-Inte text-gray-500 bg-gradient-to-br from-[#020213] to-[#091C38] antialiased `}
+        className={`font-Oswal font-Inte font-Oswaldlight text-white bg-gradient-to-br from-[#020213] to-[#091C38] antialiased `}
       >
         <Header/>
         {children}

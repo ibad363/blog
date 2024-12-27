@@ -53,7 +53,8 @@ const config: Config = {
   		},
   		fontFamily: {
   			Inter: 'Inter',
-  			Oswald: 'Oswald'
+  			Oswald: 'Oswald',
+  			Oswaldlight: 'Oswaldlight',
   		},
   		borderRadius: {
   			lg: 'var(--radius)',

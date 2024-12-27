@@ -17,10 +17,10 @@ const Header = () => {
 
   return (
     <div className="bg-gradient-to-br bg-transparent from-[#020213] to-[#091C38] w-full">
-      <header className="mx-auto max-w-[1000px] text-white sticky top-0 z-20 ">
+      <header className="mx-auto max-w-[1000px] text-white sticky top-0 z-20">
 
         <div>
-          <Link href={"/"}><h1 className="text-center text-[32px] uppercase tracking-[6px] pt-[30px] hidden md:block">Dev Sphere</h1></Link>
+          <Link href={"/"}><h1 className="text-center text-[32px] uppercase tracking-[6px] pt-[30px] hidden md:block font-bold">Dev Sphere</h1></Link>
         </div>
 
         <div className="mx-auto items-center justify-between px-3 mt-[40px] pb-2 border-b-2 tracking-wider hidden md:flex">

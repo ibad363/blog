@@ -7,11 +7,16 @@
   src: url("./fonts/Inter-Regular.ttf");
 }
 
-
 @font-face{
   font-family: "Oswald";
   src: url("./fonts/Oswald.ttf");
 }
+
+@font-face{
+  font-family: "Oswaldlight";
+  src: url("./fonts/Oswald-Light.ttf");
+}
+
 
 
 @layer base {
