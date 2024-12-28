@@ -14,7 +14,7 @@ const AI = () => {
         <div className="mt-12 flex flex-col md:flex-row gap-5 lg:gap-14">
             {/* Blog Description */}
             <div className="px-2 md:px-0 flex flex-col items-center md:items-start">
-              <h3 className="text-3xl">How I created a chess subscription
+              <h3 className="text-3xl text-center md:text-start">How I created a chess subscription
               application.</h3>
               <p className="mt-2">12 July 2022</p>
               {/* Tags */}
@@ -34,7 +34,7 @@ const AI = () => {
               <Link href={"/web-dev/b1"}><Button variant={"link"} className='text-white text-lg p-0 mt-4'>Read More</Button></Link>
             </div>
             {/* Blog Image */}
-            <div className="md:min-w-[400px] max-w-[500px] h-auto lg:h-[370px] mx-auto w-full">
+            <div className="md:min-w-[400px] max-w-[500px] h-auto lg:h-[370px] mx-auto w-full hover:scale-105 duration-300 transition-all">
                 <Image src={"/1.png"} alt="Blog Image" width={500} height={500} className="object-cover w-full h-full rounded-xl"></Image>
             </div>
         </div>

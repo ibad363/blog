@@ -1,5 +1,5 @@
 import Image from "next/image"
-import { Clock, UserPen } from 'lucide-react';
+import { UserPen } from 'lucide-react';
 import BlogCard from "../BlogCard";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
@@ -13,7 +13,7 @@ const Latest = () => {
         {/* Big Box */}
         <div className="mt-6 flex flex-col md:flex-row gap-5 lg:gap-14">
             {/* Blog Image */}
-            <div className="md:min-w-[400px] max-w-[500px] h-auto lg:h-[370px] mx-auto w-full">
+            <div className="md:min-w-[400px] max-w-[500px] h-auto lg:h-[370px] mx-auto w-full hover:scale-105 duration-300 transition-all">
                 <Image src={"/1.png"} alt="Blog Image" width={500} height={500} className="object-cover w-full h-full rounded-xl"></Image>
             </div>
             {/* Blog Description */}
