@@ -12,6 +12,12 @@ export default defineType({
       validation: (Rule) => Rule.required().max(100), // Max 100 characters
     }),
     defineField({
+      name: "shortDescription",
+      title: "Short Description",
+      type: "string",
+      validation: (Rule) => Rule.required().max(170), // Max 170 characters
+    }),
+    defineField({
       name: "mainImage",
       title: "Main Image",
       type: "image",
@@ -31,12 +37,11 @@ export default defineType({
       name: "authorName",
       title: "Author Name",
       type: "string",
-      validation: (Rule) => Rule.required(), // Author is required
     }),
     defineField({
       name: "uploadDate",
       title: "Upload Date",
-      type: "datetime",
+      type: "date",
       validation: (Rule) => Rule.required(),
     }),
     defineField({
@@ -79,19 +84,17 @@ export default defineType({
               name: "name",
               title: "Name",
               type: "string",
-              validation: (Rule) => Rule.required(),
             }),
             defineField({
               name: "email",
               title: "Email",
               type: "string",
-              validation: (Rule) => Rule.required().email(),
             }),
             defineField({
               name: "comment",
               title: "Comment",
               type: "text",
-              validation: (Rule) => Rule.required().max(500),
+              validation: (Rule) => Rule.max(500),
             }),
             defineField({
               name: "date",

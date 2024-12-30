@@ -1,42 +1,51 @@
 import Image from "next/image"
-import { Clock ,Mail,MessageCircle,User,UserPen} from 'lucide-react';
-import { Input } from "@/components/ui/input";
-import { Textarea } from "@/components/ui/textarea";
+import { Clock ,UserPen} from 'lucide-react';
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
-import BlogCard from "@/app/components/BlogCard";
 import NewsLetter from "@/app/components/NewsLetter";
+import { client } from "@/sanity/lib/client";
+import { urlFor } from "@/sanity/lib/image";
+import CommentSection from "@/app/components/CommentSection";
+import BlogCard from "@/app/components/BlogCard";
 
-function Blog() {
+
+
+async function Blog({params} : {params: {id: string}}) {
+    const blog = await fetchBlog(params.id)
+
+  if (!blog) {
+    return <div className="text-center mt-6 text-2xl">Loading...</div>;
+  }
+
   return (
     <div className="max-w-[1000px] mx-auto px-3">
         {/* Main Image */}
         <div className="max-w-[1000px] h-[300px] mx-auto mt-[60px]">
-            <Image src={"/web-dev1.jfif"} alt="" width={950} height={300} className="object-fill w-full h-full rounded"></Image>
+            <Image src={urlFor(blog.mainImage).url()} alt="" width={950} height={300} className="object-fill w-full h-full rounded"></Image>
         </div>
 
         {/* Description*/}
         <div className="max-w-[600px] mx-auto">
             {/* Heading */}
-            <h1 className="font-bold text-[28px] md:text-[32px] text-center md:text-left mt-7">Why TypeScript is the Better Choice over JavaScript</h1>
+            <h1 className="font-bold text-[28px] md:text-[32px] text-center md:text-left mt-7">{blog.title}</h1>
 
             {/* tags etc */}
             <div className="flex items-center flex-col sm:flex-row gap-3 justify-between mt-4">
                 {/* Tags */}
                 <div className="flex items-center gap-2 mt-2">
-                    <p className="text-[#9BB848]">#javascript</p>
-                    <p className="text-[#48B8AA]">#nextjs</p>
-                    <p className="text-[#B89F48]">#stripe</p>
+                    <p className="text-[#9BB848]">#{blog.tags[0]}</p>
+                    <p className="text-[#48B8AA]">#{blog.tags[1]}</p>
+                    <p className="text-[#B89F48]">#{blog.tags[2]}</p>
                 </div>
 
                 <div className="flex gap-2">
                     <div className='flex items-center gap-2'>
                         <UserPen />
-                        <span>{"Ibad ur Rehman"}</span>
+                        <span>{blog.authorName}</span>
                     </div>
                     <div className='flex items-center gap-2'>
                         <Clock />
-                        <span>{"12 July 2022"}</span>
+                        <span>{blog.uploadDate}</span>
                     </div>
 
                 </div>
@@ -76,28 +85,7 @@ function Blog() {
                    <br /><br />
                   Overall, TypeScript can provide better type-safety and improved readability compared to JavaScript.</p>
 
-            {/* Post Comment */}
-            <h3 className="text-[26px] md:text-[32px] mt-6">Leave a comment</h3>
-            <div className="mt-[25px]">
-                <div className="flex">
-                    <Input type="text" placeholder="Name" className="bg-transparent placeholder:text-white rounded-none oultine-none border-[#383FEF]"/>
-                    <Input type="email" placeholder="Email" className="bg-transparent placeholder:text-white rounded-none oultine-none border-[#383FEF]"/>
-                </div>
-                <Textarea className="rounded-none resize-none placeholder:text-white border-[#383FEF]" placeholder="Comment "></Textarea>
-            </div>
-
-            {/* All Comments */}
-            <div className="mt-6">
-                <h3 className="text-[26px] md:text-[32px] mt-6">Comments</h3>
-                {/* Each Comment */}
-                <div className="mt-2 space-y-3 border-y border-[#383FEF] py-2">
-                    <div className="flex flex-col sm:flex-row gap-2 sm:gap-6">
-                        <span className="flex gap-1"><User />Ibad Ur Rehman</span>
-                        <span className="flex gap-1"><Mail />hafizibadurrehman363@gmail.com</span>
-                    </div>
-                    <p className="flex flex-wrap gap-1"><MessageCircle />Very Informative Blog i have been reading</p>
-                </div>              
-            </div>
+                  <CommentSection/>
         </div>
 
         {/* Similar Posts */}
@@ -121,8 +109,8 @@ function Blog() {
                 <p className="mt-6 text-center md:text-left leading-loose">Lorem ipsum dolor sit amet, consectetur adipiscing elit. In ullamcorper accumsan nisl, a aliquam nibh. Phasellus felis justo, convallis eget eros at, consequat luctus felis.Nunc pharetra orci tellus. Nulla facilisi.</p>
                 <div className="flex items-center gap-6 mt-4">
                     <div className='flex items-center gap-3'>
-                    <UserPen />
-                    <span>{"author"}</span>
+                        <UserPen />
+                        <span>{"author"}</span>
                     </div>
                     <span className='pr-4'>{"WeB dev"}</span>
                 </div>
@@ -136,7 +124,7 @@ function Blog() {
 
             {/* Multiple Boxes */}
             <div className="mt-14 flex flex-wrap md:flex-nowrap md:justify-start justify-center gap-4 lg:gap-12">
-                <BlogCard 
+                {/* <BlogCard 
                 name="Javascript TDD with VITE and NextJS"
                 tags={["javascript","nextjs","stripe"]}
                 desc="Lorem ipsum dolor sit amet, consectetur adipiscing elit. In ullamcorper accumsan nisl, a aliquam nibh. Phasellus felis justo, convallis eget eros at, consequat luctus felis."
@@ -144,7 +132,7 @@ function Blog() {
                 uploadDate="12 July 2022"
                 category="A.I"
                 />
-                
+                 */}
 
             </div>
         </div>
@@ -152,6 +140,19 @@ function Blog() {
         <NewsLetter/>
     </div>
   )
+}
+
+export async function generateStaticParams() {
+    const blogs = await client.fetch(`*[_type == "blog"]{_id}`)
+    return blogs.map((blog: any) => {
+        id: blog._id
+    })
+}
+
+export async function fetchBlog(id:string){
+    const blog = await client.fetch(`*[_type == "blog" && _id == $id]`, {id})
+    console.log("Fetched Blog:", blog);
+    return blog[0]
 }
 
 export default Blog

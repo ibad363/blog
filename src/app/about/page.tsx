@@ -50,7 +50,7 @@ function About() {
       <h1 className="font-bold text-4xl md:text-5xl text-center md:text-start">FROM THE BLOG</h1>
       
       <div className="mt-10 mb-20 flex flex-wrap md:flex-nowrap md:justify-start justify-center gap-4 lg:gap-12">
-          <BlogCard 
+          {/* <BlogCard 
             name="Javascript TDD with VITE and NextJS"
             tags={["javascript","nextjs","stripe"]}
             desc="Lorem ipsum dolor sit amet, consectetur adipiscing elit. In ullamcorper accumsan nisl, a aliquam nibh. Phasellus felis justo, convallis eget eros at, consequat luctus felis."
@@ -73,7 +73,7 @@ function About() {
             author="Ibad ur Rehman"
             uploadDate="12 July 2022"
             category="App Dev"
-            />  
+            />   */}
       </div>
 
       <NewsLetter/>

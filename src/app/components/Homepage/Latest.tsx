@@ -34,7 +34,7 @@ const Latest = () => {
                   <UserPen />
                   <span>{"author"}</span>
                 </div>
-                <span className='pr-4'>{"WeB dev"}</span>
+                <span className='pr-4'>{"Artificial Intelligence"}</span>
               </div>
               <Link href={"/web-dev/b1"}><Button variant={"link"} className='text-white text-lg p-0 mt-4'>Read More</Button></Link>
             </div>
@@ -42,7 +42,7 @@ const Latest = () => {
 
         {/* Multiple Boxes */}
         <div className="mt-14 flex flex-wrap md:flex-nowrap md:justify-start justify-center gap-4 lg:gap-12">
-          <BlogCard 
+          {/* <BlogCard 
             name="Javascript TDD with VITE and NextJS"
             tags={["javascript","nextjs","stripe"]}
             desc="Lorem ipsum dolor sit amet, consectetur adipiscing elit. In ullamcorper accumsan nisl, a aliquam nibh. Phasellus felis justo, convallis eget eros at, consequat luctus felis."
@@ -54,9 +54,8 @@ const Latest = () => {
             name="Javascript TDD with VITE and NextJS"
             tags={["javascript","nextjs","stripe"]}
             desc="Lorem ipsum dolor sit amet, consectetur adipiscing elit. In ullamcorper accumsan nisl, a aliquam nibh. Phasellus felis justo, convallis eget eros at, consequat luctus felis."
-            author="Ibad ur Rehman"
             uploadDate="12 July 2022"
-            category="Web Dev"
+            category="Artificial Intelligence"
             />
                       <BlogCard 
             name="Javascript TDD with VITE and NextJS"
@@ -65,7 +64,7 @@ const Latest = () => {
             author="Ibad ur Rehman"
             uploadDate="12 July 2022"
             category="App Dev"
-            />  
+            />   */}
         </div>
     </div>
   )

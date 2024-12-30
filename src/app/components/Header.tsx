@@ -28,13 +28,13 @@ const Header = () => {
           <nav className="flex justify-center">
           <ul className="hidden md:flex gap-4">
               <li className="cursor-pointer hover:border-white hover:border-b transition-all duration-300">
-                <Link href="/web-dev">Website Developement</Link>
+                <Link href="/blogs/web-dev">Website Developement</Link>
               </li>
               <li className="cursor-pointer hover:border-white hover:border-b transition-all duration-300">
-              <Link href="/app-dev">App Developement</Link>
+              <Link href="/blogs/app-dev">App Developement</Link>
               </li>
               <li className="cursor-pointer hover:border-white hover:border-b transition-all duration-300">
-              <Link href="/ai">Artificial Intelligence</Link>
+              <Link href="/blogs/ai">Artificial Intelligence</Link>
               </li>
               <li className="cursor-pointer hover:border-white hover:border-b transition-all duration-300">
               <Link href="/about">About Me</Link>
@@ -60,19 +60,19 @@ const Header = () => {
 
         {/* Sheet */}
         <Sheet open={isNavbarOpen} onOpenChange={setIsNavbarOpen}>
-          <SheetContent className="bg-gradient-to-br from-[#020213] to-[#091C38] text-white w-[15rem]" side={"right"}>
+          <SheetContent className="bg-gradient-to-br from-[#020213] to-[#091C38]  w-[15rem]" side={"left"}>
             <SheetHeader>
-              <SheetTitle></SheetTitle>
+              <SheetTitle className="text-center text-white tracking-widest">DEV SPHERE</SheetTitle>
               <SheetDescription>
-                <ul className="flex flex-col gap-8">
+                <ul className="flex flex-col gap-8 text-white mt-6">
                   <li className="cursor-pointer hover:underline">
-                    <Link href="/web-dev">Website Developement</Link>
+                    <Link href="/blogs/web-dev">Website Developement</Link>
                   </li>
                   <li className="cursor-pointer hover:underline">
-                    <Link href="/app-dev">App Developement</Link>
+                    <Link href="/blogs/app-dev">App Developement</Link>
                   </li>
                   <li className="cursor-pointer hover:underline">
-                    <Link href="/ai">Artificial Intelligence</Link>
+                    <Link href="/blogs/ai">Artificial Intelligence</Link>
                   </li>
                   <li className="cursor-pointer hover:underline">
                     <Link href="/about">About Me</Link>
