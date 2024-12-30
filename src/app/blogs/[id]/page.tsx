@@ -6,15 +6,27 @@ import NewsLetter from "@/app/components/NewsLetter";
 import { client } from "@/sanity/lib/client";
 import { urlFor } from "@/sanity/lib/image";
 import CommentSection from "@/app/components/CommentSection";
+import { notFound } from "next/navigation";
 import BlogCard from "@/app/components/BlogCard";
 
+export async function generateStaticParams() {
+    const blogs = await client.fetch(`*[_type == "blog"]{_id}`)
+    return blogs.map((blog: any) => {
+        id: blog._id
+    })
+}
 
+async function fetchBlog(id:string){
+    const blog = await client.fetch(`*[_type == "blog" && _id == $id]`, {id})
+    // console.log("Fetched Blog:", blog);
+    return blog[0]
+}
 
 async function Blog({params} : {params: {id: string}}) {
     const blog = await fetchBlog(params.id)
 
   if (!blog) {
-    return <div className="text-center mt-6 text-2xl">Loading...</div>;
+    notFound()
   }
 
   return (
@@ -142,17 +154,5 @@ async function Blog({params} : {params: {id: string}}) {
   )
 }
 
-export async function generateStaticParams() {
-    const blogs = await client.fetch(`*[_type == "blog"]{_id}`)
-    return blogs.map((blog: any) => {
-        id: blog._id
-    })
-}
-
-export async function fetchBlog(id:string){
-    const blog = await client.fetch(`*[_type == "blog" && _id == $id]`, {id})
-    console.log("Fetched Blog:", blog);
-    return blog[0]
-}
 
 export default Blog
