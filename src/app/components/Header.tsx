@@ -37,6 +37,9 @@ const Header = () => {
               <Link href="/blogs/ai">Artificial Intelligence</Link>
               </li>
               <li className="cursor-pointer hover:border-white hover:border-b transition-all duration-300">
+              <Link href="/blogs">All Blogs</Link>
+              </li>
+              <li className="cursor-pointer hover:border-white hover:border-b transition-all duration-300">
               <Link href="/about">About Me</Link>
               </li>
           </ul>
@@ -73,6 +76,9 @@ const Header = () => {
                   </li>
                   <li className="cursor-pointer hover:underline">
                     <Link href="/blogs/ai">Artificial Intelligence</Link>
+                  </li>
+                  <li className="cursor-pointer hover:border-white hover:border-b transition-all duration-300">
+                    <Link href="/blogs">All Blogs</Link>
                   </li>
                   <li className="cursor-pointer hover:underline">
                     <Link href="/about">About Me</Link>

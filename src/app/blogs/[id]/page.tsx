@@ -7,9 +7,12 @@ import { client } from "@/sanity/lib/client";
 import { urlFor } from "@/sanity/lib/image";
 import CommentSection from "@/app/components/CommentSection";
 import { notFound } from "next/navigation";
+import { PortableText } from '@portabletext/react';
 import BlogCard from "@/app/components/BlogCard";
 
 export async function generateStaticParams() {
+
+
     const blogs = await client.fetch(`*[_type == "blog"]{_id}`)
     return blogs.map((blog: any) => {
         id: blog._id
@@ -18,12 +21,24 @@ export async function generateStaticParams() {
 
 async function fetchBlog(id:string){
     const blog = await client.fetch(`*[_type == "blog" && _id == $id]`, {id})
-    // console.log("Fetched Blog:", blog);
     return blog[0]
 }
 
 async function Blog({params} : {params: {id: string}}) {
+
     const blog = await fetchBlog(params.id)
+
+    const similarBlogs = await client.fetch(`*[_type == "blog"] | order(uploadDate desc)[0...4] {
+        title,
+        shortDescription,
+        mainImage,
+        tags,
+        authorName,
+        uploadDate,
+        category,
+        _id
+      }`,{},{cache: "no-store"})
+
 
   if (!blog) {
     notFound()
@@ -63,41 +78,38 @@ async function Blog({params} : {params: {id: string}}) {
                 </div>
             </div>
 
-              <p className="mt-6 text-justify">As a developer, you want to write code that is not only functional, but also easy to maintain and extend. This is where TypeScript comes in. While JavaScript is the most popular programming language in the world, TypeScript offers several advantages that make it a better choice for many projects. <br /><br />
+            {/* Blog Content */}
+            <div>
 
-                  First and foremost, TypeScript is a typed language, which means that variables have a specific type (such as string, number, or boolean) and the compiler will check for type errors at compile time. This makes it easier to catch errors early on and prevents runtime exceptions, saving you time and frustration.<br /><br />
 
-                  In addition, TypeScript has a rich type system that allows you to define interfaces, classes, and other advanced types that make your code more organized and self-documenting. This not only improves the readability of your code, but also makes it easier for other developers to understand and work with.<br /><br />
-
-                  Another advantage of TypeScript is that it is a superset of JavaScript, which means that any valid JavaScript code is also valid TypeScript code. This means that you can gradually introduce TypeScript into your existing JavaScript codebase, and take advantage of its features as needed. You can also use the TypeScript compiler to convert your TypeScript code into plain JavaScript that can run in any modern browser or runtime.<br /><br />
-
-                  In conclusion, while JavaScript will always have its place in the world of programming, TypeScript offers many compelling benefits that make it a better choice for large and complex projects. With its strong typing, advanced type system, and seamless integration with JavaScript, TypeScript can help you write more maintainable and scalable code. If you're not already using TypeScript, it's definitely worth considering for your next project.<br /><br />
-
-                  Here's an example of how TypeScript can provide benefits over JavaScript:</p>
-
-              <Image src={"/2.png"} alt="" width={620} height={300} className="object-fill w-full h-full rounded mt-3"></Image>
-
-              <p className="mt-6 text-justify">In the TypeScript version of the code, we've defined the types of the a and b arguments as number, which means that the TypeScript compiler will only allow values of the number type to be passed to the sum function. If we try to pass a string value like in the JavaScript code, the compiler will throw an error and prevent us from running the code. This type-checking can help us catch errors early on and prevent runtime exceptions. <br /><br />
-
-                In addition, the TypeScript version of the code is easier to read and understand, thanks to the type annotations. Other developers can quickly see what type of values the sum function expects, and use that information to avoid making mistakes when calling the function. <br /><br />
-
-                Overall, TypeScript can provide better type-safety and improved readability compared to JavaScript.</p>
+                {/* <p className="mt-6 text-justify">{blog.description}</p> */}
 
                 <Image src={"/2.png"} alt="" width={620} height={300} className="object-fill w-full h-full rounded mt-3"></Image>
 
-              <p>In the above JavaScript code, the sum function accepts two arguments and returns their sum. However, the function is not type-safe, which means that it will allow you to pass arguments of any type. In this case, we're passing a number and a string, which results in the concatenation of the two values. <br />
-                  This can be a common source of errors, especially in larger codebases.
-                  <br /><br />
-                  Here's the same code written in TypeScript:</p>
+                <p className="mt-6 text-justify">In the TypeScript version of the code, we've defined the types of the a and b arguments as number, which means that the TypeScript compiler will only allow values of the number type to be passed to the sum function. If we try to pass a string value like in the JavaScript code, the compiler will throw an error and prevent us from running the code. This type-checking can help us catch errors early on and prevent runtime exceptions. <br /><br />
+
+            In addition, the TypeScript version of the code is easier to read and understand, thanks to the type annotations. Other developers can quickly see what type of values the sum function expects, and use that information to avoid making mistakes when calling the function. <br /><br />
+
+            Overall, TypeScript can provide better type-safety and improved readability compared to JavaScript.</p>
 
                 <Image src={"/2.png"} alt="" width={620} height={300} className="object-fill w-full h-full rounded mt-3"></Image>
 
-              <p>In the TypeScript version of the code, we've defined the types of the a and b arguments as number, which means that the TypeScript compiler will only allow values of the number type to be passed to the sum function. If we try to pass a string value like in the JavaScript code, the compiler will throw an error and prevent us from running the code. This type-checking can help us catch errors early on and prevent runtime exceptions. <br /><br />
-                  In addition, the TypeScript version of the code is easier to read and understand, thanks to the type annotations. Other developers can quickly see what type of values the sum function expects, and use that information to avoid making mistakes when calling the function.
-                   <br /><br />
-                  Overall, TypeScript can provide better type-safety and improved readability compared to JavaScript.</p>
+                <p>In the above JavaScript code, the sum function accepts two arguments and returns their sum. However, the function is not type-safe, which means that it will allow you to pass arguments of any type. In this case, we're passing a number and a string, which results in the concatenation of the two values. <br />
+                This can be a common source of errors, especially in larger codebases.
+                <br /><br />
+                Here's the same code written in TypeScript:</p>
 
-                  <CommentSection/>
+                <Image src={"/2.png"} alt="" width={620} height={300} className="object-fill w-full h-full rounded mt-3"></Image>
+
+                <p>In the TypeScript version of the code, we've defined the types of the a and b arguments as number, which means that the TypeScript compiler will only allow values of the number type to be passed to the sum function. If we try to pass a string value like in the JavaScript code, the compiler will throw an error and prevent us from running the code. This type-checking can help us catch errors early on and prevent runtime exceptions. <br /><br />
+                    In addition, the TypeScript version of the code is easier to read and understand, thanks to the type annotations. Other developers can quickly see what type of values the sum function expects, and use that information to avoid making mistakes when calling the function.
+                    <br /><br />
+                    Overall, TypeScript can provide better type-safety and improved readability compared to JavaScript.</p>
+
+            </div>
+
+
+            <CommentSection blogId={params.id}/>
         </div>
 
         {/* Similar Posts */}
@@ -109,43 +121,45 @@ async function Blog({params} : {params: {id: string}}) {
             <div className="mt-12 flex flex-col md:flex-row gap-5 lg:gap-14">
                 {/* Blog Description */}
                 <div className="px-2 md:px-0 flex flex-col items-center md:items-start">
-                <h3 className="text-3xl text-center md:text-start">How I created a chess subscription
-                application.</h3>
-                <p className="mt-2">12 July 2022</p>
+                <h3 className="text-3xl text-center md:text-start">{similarBlogs[0].title}</h3>
+                <p className="mt-2">{similarBlogs[0].uploadDate}</p>
                 {/* Tags */}
                 <div className="flex items-center gap-2 mt-2">
-                    <p className="text-[#9BB848]">#javascript</p>
-                    <p className="text-[#48B8AA]">#nextjs</p>
-                    <p className="text-[#B89F48]">#stripe</p>
+                    <p className="text-[#9BB848]">#{similarBlogs[0].tags[0]}</p>
+                    <p className="text-[#48B8AA]">#{similarBlogs[0].tags[1]}</p>
+                    <p className="text-[#B89F48]">#{similarBlogs[0].tags[2]}</p>
                 </div>
-                <p className="mt-6 text-center md:text-left leading-loose">Lorem ipsum dolor sit amet, consectetur adipiscing elit. In ullamcorper accumsan nisl, a aliquam nibh. Phasellus felis justo, convallis eget eros at, consequat luctus felis.Nunc pharetra orci tellus. Nulla facilisi.</p>
+                <p className="mt-6 text-center md:text-left leading-loose">{similarBlogs[0].shortDesc}</p>
                 <div className="flex items-center gap-6 mt-4">
                     <div className='flex items-center gap-3'>
                         <UserPen />
-                        <span>{"author"}</span>
+                        <span>{similarBlogs[0].authorName}</span>
                     </div>
-                    <span className='pr-4'>{"WeB dev"}</span>
+                    <span className='pr-4'>{similarBlogs[0].category}</span>
                 </div>
-                <Link href={"/web-dev/b1"}><Button variant={"link"} className='text-white text-lg p-0 mt-4'>Read More</Button></Link>
+                <Link href={`/blogs/${similarBlogs[0]._id}`}><Button variant={"link"} className='text-white text-lg p-0 mt-4'>Read More</Button></Link>
                 </div>
                 {/* Blog Image */}
                 <div className="md:min-w-[400px] max-w-[500px] h-auto lg:h-[370px] mx-auto w-full hover:scale-105 duration-300 transition-all">
-                    <Image src={"/1.png"} alt="Blog Image" width={500} height={500} className="object-cover w-full h-full rounded-xl"></Image>
+                    <Image src={urlFor(similarBlogs[0].mainImage).url()} alt="Blog Image" width={500} height={500} className="object-cover w-full h-full rounded-xl"></Image>
                 </div>
             </div>
 
             {/* Multiple Boxes */}
             <div className="mt-14 flex flex-wrap md:flex-nowrap md:justify-start justify-center gap-4 lg:gap-12">
-                {/* <BlogCard 
-                name="Javascript TDD with VITE and NextJS"
-                tags={["javascript","nextjs","stripe"]}
-                desc="Lorem ipsum dolor sit amet, consectetur adipiscing elit. In ullamcorper accumsan nisl, a aliquam nibh. Phasellus felis justo, convallis eget eros at, consequat luctus felis."
-                author="Ibad ur Rehman"
-                uploadDate="12 July 2022"
-                category="A.I"
+            {similarBlogs.slice(1).map((blog: any) => (
+                <BlogCard
+                    key={blog._id}
+                    title={blog.title}
+                    image={blog.mainImage}
+                    shortDesc={blog.shortDesc}
+                    author={blog.authorName}
+                    uploadDate={blog.uploadDate}
+                    tags={blog.tags}
+                    category={blog.category}
+                    id={blog._id}
                 />
-                 */}
-
+            ))}
             </div>
         </div>
 

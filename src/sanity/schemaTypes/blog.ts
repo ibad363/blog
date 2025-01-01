@@ -104,7 +104,7 @@ export default defineType({
             }),
             defineField({
                 name: "blog",
-                title: "Blog Reference",
+                title: "Reference",
                 type: "reference",
                 to: [{ type: "blog" }], // Link to the blog
             }),

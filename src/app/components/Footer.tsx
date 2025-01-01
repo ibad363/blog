@@ -11,13 +11,13 @@ const Footer = () => {
           <nav className="flex justify-center">
             <ul className="flex gap-4">
               <li className="cursor-pointer hover:border-white hover:border-b transition-all duration-300">
-                <Link href="/web-dev">Website Developement</Link>
+                <Link href="/blogs/web-dev">Website Developement</Link>
               </li>
               <li className="cursor-pointer hover:border-white hover:border-b transition-all duration-300">
-                <Link href="/app-dev">App Developement</Link>
+                <Link href="/blogs/app-dev">App Developement</Link>
               </li>
               <li className="cursor-pointer hover:border-white hover:border-b transition-all duration-300">
-                <Link href="/ai">Artificial Intelligence</Link>
+                <Link href="/blogs/ai">Artificial Intelligence</Link>
               </li>
               <li className="cursor-pointer hover:border-white hover:border-b transition-all duration-300">
                 <Link href="/about">About Me</Link>

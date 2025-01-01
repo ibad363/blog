@@ -1,8 +1,21 @@
 import Image from "next/image"
 import BlogCard from "../components/BlogCard"
 import NewsLetter from "../components/NewsLetter"
+import { client } from "@/sanity/lib/client"
 
-function About() {
+async function About() {
+    const blogs = await client.fetch(`*[_type == "blog" && (category == "web-dev" || category == "app-dev")] {
+      title,
+      shortDescription,
+      mainImage,
+      tags,
+      authorName,
+      uploadDate,
+      category,
+      _id
+    }`,{},{cache: "no-store"})
+    const randomBlogs = blogs.sort(() => Math.random() - 0.5).slice(0, 3);
+
   return (
     <div className=" mt-[60px] mb-[100px]">
     {/* About Section */}
@@ -50,30 +63,19 @@ function About() {
       <h1 className="font-bold text-4xl md:text-5xl text-center md:text-start">FROM THE BLOG</h1>
       
       <div className="mt-10 mb-20 flex flex-wrap md:flex-nowrap md:justify-start justify-center gap-4 lg:gap-12">
-          {/* <BlogCard 
-            name="Javascript TDD with VITE and NextJS"
-            tags={["javascript","nextjs","stripe"]}
-            desc="Lorem ipsum dolor sit amet, consectetur adipiscing elit. In ullamcorper accumsan nisl, a aliquam nibh. Phasellus felis justo, convallis eget eros at, consequat luctus felis."
-            author="Ibad ur Rehman"
-            uploadDate="12 July 2022"
-            category="A.I"
+      {randomBlogs.map((blog:any)=>(
+            <BlogCard
+            key={blog._id}
+            title={blog.title}
+            image={blog.mainImage}
+            shortDesc={blog.shortDesc}
+            author={blog.authorName}
+            uploadDate={blog.uploadDate}
+            tags={blog.tags}
+            category={blog.category}
+            id={blog._id}
             />
-                      <BlogCard 
-            name="Javascript TDD with VITE and NextJS"
-            tags={["javascript","nextjs","stripe"]}
-            desc="Lorem ipsum dolor sit amet, consectetur adipiscing elit. In ullamcorper accumsan nisl, a aliquam nibh. Phasellus felis justo, convallis eget eros at, consequat luctus felis."
-            author="Ibad ur Rehman"
-            uploadDate="12 July 2022"
-            category="Web Dev"
-            />
-                      <BlogCard 
-            name="Javascript TDD with VITE and NextJS"
-            tags={["javascript","nextjs","stripe"]}
-            desc="Lorem ipsum dolor sit amet, consectetur adipiscing elit. In ullamcorper accumsan nisl, a aliquam nibh. Phasellus felis justo, convallis eget eros at, consequat luctus felis."
-            author="Ibad ur Rehman"
-            uploadDate="12 July 2022"
-            category="App Dev"
-            />   */}
+          ))}
       </div>
 
       <NewsLetter/>
