@@ -11,17 +11,20 @@ import { PortableText } from '@portabletext/react';
 import BlogCard from "@/app/components/BlogCard";
 
 export async function generateStaticParams() {
-
-
     const blogs = await client.fetch(`*[_type == "blog"]{_id}`)
-    return blogs.map((blog: any) => {
+    return blogs.map((blog: any) => ({
         id: blog._id
-    })
+    }))
 }
 
 async function fetchBlog(id:string){
-    const blog = await client.fetch(`*[_type == "blog" && _id == $id]`, {id})
-    return blog[0]
+    try {
+        const blog = await client.fetch(`*[_type == "blog" && _id == $id]`, { id });
+        return blog[0];
+    } catch (error) {
+        console.error("Error fetching blog:", error);
+        return null;
+    }
 }
 
 async function Blog({params} : {params: {id: string}}) {

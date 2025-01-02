@@ -17,7 +17,6 @@ const AI = async () => {
       category,
       _id
     }`,{},{cache: "no-store"})
-    console.log(blogs)
 
   return (
     <div className="mx-auto max-w-[1000px] mt-20 px-3">
