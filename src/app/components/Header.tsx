@@ -1,16 +1,15 @@
 "use client"
 import { Search, Menu, ShoppingCart, Heart,UserCheck } from "lucide-react";
-import { useRef, useState } from "react";
+import { useState } from "react";
 import {
   Sheet,
+  SheetClose,
   SheetContent,
   SheetDescription,
   SheetHeader,
   SheetTitle,
-  SheetTrigger,
 } from "@/components/ui/sheet";
 import Link from "next/link";
-import Image from "next/image";
 
 const Header = () => {
   const [isNavbarOpen, setIsNavbarOpen] = useState(false)
