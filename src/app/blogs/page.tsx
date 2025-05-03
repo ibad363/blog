@@ -15,7 +15,7 @@ const Blogs = async () => {
     uploadDate,
     category,
     _id
-  }`,{},{cache: "no-store"})
+  }`,{},{next:{revalidate: 129600}})
   const appDevBlogs = await client.fetch(`*[_type == "blog" && category == "app-dev"] | order(uploadDate desc)[0...3] {
     title,
     shortDescription,
@@ -25,7 +25,7 @@ const Blogs = async () => {
     uploadDate,
     category,
     _id
-  }`,{},{cache: "no-store"})
+  }`,{},{next:{revalidate: 129600}})
   const aiBlogs = await client.fetch(`*[_type == "blog" && category == "ai"] | order(uploadDate desc)[0...3]  {
     title,
     shortDescription,
@@ -35,7 +35,7 @@ const Blogs = async () => {
     uploadDate,
     category,
     _id
-  }`,{},{cache: "no-store"})
+  }`,{},{next:{revalidate: 129600}})
   return (
     <div className="mx-auto max-w-[1000px] mt-10 px-3">
       {/* A.I */}

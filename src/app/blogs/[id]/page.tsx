@@ -11,7 +11,7 @@ import { PortableText } from '@portabletext/react';
 import BlogCard from "@/app/components/BlogCard";
 
 export async function generateStaticParams() {
-    const blogs = await client.fetch(`*[_type == "blog"]{_id}`)
+    const blogs = await client.fetch(`*[_type == "blog"]{_id}`,{},{next:{revalidate: 129600}})
     return blogs.map((blog: any) => ({
         id: blog._id
     }))
@@ -19,7 +19,7 @@ export async function generateStaticParams() {
 
 async function fetchBlog(id:string){
     try {
-        const blog = await client.fetch(`*[_type == "blog" && _id == $id]`, { id });
+        const blog = await client.fetch(`*[_type == "blog" && _id == $id]`, { id },{next:{revalidate: 129600}});
         return blog[0];
     } catch (error) {
         console.error("Error fetching blog:", error);
@@ -40,7 +40,7 @@ async function Blog({params} : {params: {id: string}}) {
         uploadDate,
         category,
         _id
-      }`,{},{cache: "no-store"})
+      }`,{},{next:{revalidate: 129600}})
 
 
   if (!blog) {

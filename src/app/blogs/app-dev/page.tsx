@@ -12,7 +12,7 @@ async function AppDev() {
     category,
     comments,
     _id
-  }`,{},{cache: "no-store"})
+  }`,{},{next:{revalidate: 129600}})
 
   return (
     <div className="mx-auto max-w-[1000px] mt-10 px-3">

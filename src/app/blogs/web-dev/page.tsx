@@ -12,7 +12,7 @@ async function WebDev() {
   category,
   comments,
   _id
-}`,{},{cache: "no-store"})
+}`,{},{next:{revalidate: 129600}})
 
 
 

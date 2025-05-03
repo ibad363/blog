@@ -13,7 +13,7 @@ async function About() {
       uploadDate,
       category,
       _id
-    }`,{},{cache: "no-store"})
+    }`,{},{next:{revalidate: 129600}})
     const randomBlogs = blogs.sort(() => Math.random() - 0.5).slice(0, 3);
 
   return (
